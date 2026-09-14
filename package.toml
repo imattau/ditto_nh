@@ -1,0 +1,48 @@
+# Native NostrHost package manifest (`_nh` format) for Ditto
+# (https://ditto.pub, https://gitlab.com/soapbox-pub/ditto) — a Nostr client
+# SPA. Scriptless: [source.main] points at this repo's own pre-built GitHub
+# Release artifact (see docs/security-model.md for why), produced by
+# build.sh / .github/workflows/build.yml from the pinned upstream tag below.
+#
+# Companion classic package: https://github.com/imattau/ditto_ynh (builds
+# with `npm run build` at install time instead).
+
+[app]
+id = "ditto"
+version = "2.37.3"
+
+[source.main]
+# Update together on every version bump: run .github/workflows/build.yml
+# against the new upstream tag, then copy its printed url/sha256 here.
+url = "https://github.com/imattau/ditto_nh/releases/download/v2.37.3/ditto-v2.37.3.tar.gz"
+sha256 = "0000000000000000000000000000000000000000000000000000000000000000"
+extract = true
+destination = "/var/www/ditto"
+
+[directories.install]
+path = "/var/www/ditto"
+mode = 0o755
+
+[web]
+domain = "example.test"
+path = "/ditto/"
+file_root = "/var/www/ditto"
+auth = "nostrhost"
+https = "automatic"
+
+[permissions.main]
+url = "/"
+allowed = ["all_users"]
+auth_request = true
+
+[health]
+type = "http"
+path = "/ditto/"
+timeout = 10
+retries = 2
+
+[backup]
+# Stateless build output (no ditto.json is generated at build time - see
+# build.yml's BUILD_ENV note); a restore just re-fetches source.main.
+paths = []
+database = false
