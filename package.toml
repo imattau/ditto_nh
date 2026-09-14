@@ -15,7 +15,7 @@ version = "2.37.3"
 # Update together on every version bump: run .github/workflows/build.yml
 # against the new upstream tag, then copy its printed url/sha256 here.
 url = "https://github.com/imattau/ditto_nh/releases/download/v2.37.3/ditto-v2.37.3.tar.gz"
-sha256 = "0000000000000000000000000000000000000000000000000000000000000000"
+sha256 = "1f8dfdd931e7fd755f72fd1a213b46e3920cf2be7268e8f122bc243c163213a9"
 extract = true
 destination = "/var/www/ditto"
 
