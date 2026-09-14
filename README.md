@@ -6,9 +6,9 @@ Scriptless — see [docs/security-model.md](docs/security-model.md) for why
 `[source.main]` points at a pre-built artifact instead of building at
 install time.
 
-Built from [imattau/nh-package-template](https://github.com/imattau/nh-package-template);
-see that repo's `docs/new-package.md` for the general shape and
-[docs/new-package.md](docs/new-package.md) here for anything ditto-specific.
+Built from [imattau/nh-package-template](https://github.com/imattau/nh-package-template).
+An AI coding agent working in this repo should read [`AGENTS.md`](AGENTS.md)
+first; for a human, see [docs/new-package.md](docs/new-package.md).
 
 Companion classic package: [ditto_ynh](https://github.com/imattau/ditto_ynh)
 (builds with `npm run build` at install time).
