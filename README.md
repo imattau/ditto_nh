@@ -13,6 +13,16 @@ first; for a human, see [docs/new-package.md](docs/new-package.md).
 Companion classic package: [ditto_ynh](https://github.com/imattau/ditto_ynh)
 (builds with `npm run build` at install time).
 
+## Installing
+
+```sh
+nostrhost app install ditto --source . --domain <your-domain>
+```
+
+`[web].domain` isn't in `package.toml` — it's supplied at install time (see
+`AGENTS.md`'s "Install-time domain/path"). Proven working on the
+`nostrhost-clean7` test VM.
+
 ## Bumping to a new Ditto version
 
 1. Actions → "Build and publish artifact" → Run workflow, `upstream_ref` =

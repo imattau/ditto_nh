@@ -24,7 +24,9 @@ path = "/var/www/ditto"
 mode = 0o755
 
 [web]
-domain = "example.test"
+# No domain here on purpose - it's install-time, not manifest content:
+# `nostrhost app install ditto --source . --domain <your-domain>`.
+# See AGENTS.md's "Install-time domain/path".
 path = "/ditto/"
 file_root = "/var/www/ditto"
 auth = "nostrhost"
