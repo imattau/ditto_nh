@@ -140,6 +140,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Gitleaks scans the PR commit range and needs the head commit's
+          # parent; checkout's default single-commit clone omits it.
+          fetch-depth: 0
 
       - name: ShellCheck
         uses: ludeeus/action-shellcheck@2.0.0
