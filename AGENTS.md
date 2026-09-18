@@ -14,9 +14,9 @@ hardcoded defaults when no `ditto.json` is supplied — see `build.yml`'s
 comment). Companion classic package:
 [ditto_ynh](https://github.com/imattau/ditto_ynh). Proven installed live
 on the `nostrhost-clean7` VM test host via `nostrhost app install ditto
---source . --domain nostrhost.test` — see "Install-time domain/path"
-below; that VM run is what surfaced the need for `--domain` in the first
-place.
+--source . --domain nostrhost.test` — see "Install-time domain/path" below.
+Ditto's generated HTML uses root-absolute asset URLs, so `[web]` must keep
+`path = "/"` and `full_domain = true`; it cannot share a domain at a subpath.
 
 ## The one hard rule
 
@@ -49,7 +49,9 @@ built** artifact (this repo's own GitHub Release asset, produced by
    threaded through every path). Leave `[source.main]`'s url/sha256 as
    placeholders until step 4 — they get real values only after a real build.
    Do **not** add a `[web].domain` key — see "Install-time domain/path"
-   below.
+   below. For Ditto specifically, keep `[web].path = "/"`,
+   `[web].full_domain = true`, and `[health].path = "/"` because its build
+   emits root-absolute asset URLs.
 
 2. **Fill in `.github/workflows/build.yml`'s `env:` block:**
    `UPSTREAM_REPO` (git URL), `PACKAGE_ID` (matches `[app].id`),
@@ -102,8 +104,13 @@ built** artifact (this repo's own GitHub Release asset, produced by
 install-time parameter, not part of the package's signed content:
 
 ```sh
-nostrhost app install <id> --source . --domain example.com [--path /app/]
+nostrhost app install ditto --source . --domain ditto.example.com
 ```
+
+Ditto requires the whole domain: its generated HTML references assets at
+root-absolute paths such as `/assets/...` and `/manifest.webmanifest`.
+Accordingly, `[web].path = "/"` and `full_domain = true`; do not pass
+`--path`, and choose a domain or subdomain not used by another app.
 
 `nostrhost app upgrade` defaults `--domain`/`--path` to whatever is
 *currently installed* rather than re-reading `package.toml`'s own values,
@@ -163,6 +170,8 @@ it done.
 - Don't hardcode a `[web].domain` in `package.toml` — it's supplied via
   `--domain` at install time (see "Install-time domain/path" above), not a
   manifest field.
+- Don't change Ditto to a subpath or remove `full_domain = true`; its
+  root-absolute asset URLs require a dedicated domain root.
 - Don't copy other `_ynh`-style install-time settings (admin questions
   beyond domain/path) into `package.toml` as `[settings]` fields without
   checking whether the underlying value is actually meant to vary per

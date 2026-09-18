@@ -9,13 +9,13 @@
 
 [app]
 id = "ditto"
-version = "2.37.3"
+version = "2.38.1"
 
 [source.main]
 # Update together on every version bump: run .github/workflows/build.yml
 # against the new upstream tag, then copy its printed url/sha256 here.
-url = "https://github.com/imattau/ditto_nh/releases/download/v2.37.3/ditto-v2.37.3.tar.gz"
-sha256 = "1f8dfdd931e7fd755f72fd1a213b46e3920cf2be7268e8f122bc243c163213a9"
+url = "https://github.com/imattau/ditto_nh/releases/download/v2.38.1/ditto-v2.38.1.tar.gz"
+sha256 = "6d2e362485595186a3b56c832c16edb9b8b621b9134d9a0527152a85e0fc30cc"
 extract = true
 destination = "/var/www/ditto"
 
@@ -26,11 +26,13 @@ mode = 0o755
 [web]
 # No domain here on purpose - it's install-time, not manifest content:
 # `nostrhost app install ditto --source . --domain <your-domain>`.
-# See AGENTS.md's "Install-time domain/path".
-path = "/ditto/"
+# Ditto's build emits root-absolute asset URLs, so it must own the domain
+# root and cannot be installed below a subpath.
+path = "/"
 file_root = "/var/www/ditto"
 auth = "nostrhost"
 https = "automatic"
+full_domain = true
 
 [permissions.main]
 url = "/"
@@ -39,7 +41,7 @@ auth_request = true
 
 [health]
 type = "http"
-path = "/ditto/"
+path = "/"
 timeout = 10
 retries = 2
 

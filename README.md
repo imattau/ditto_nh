@@ -20,8 +20,9 @@ nostrhost app install ditto --source . --domain <your-domain>
 ```
 
 `[web].domain` isn't in `package.toml` — it's supplied at install time (see
-`AGENTS.md`'s "Install-time domain/path"). Proven working on the
-`nostrhost-clean7` test VM.
+`AGENTS.md`'s "Install-time domain/path"). Ditto emits root-absolute asset
+URLs, so the package declares `full_domain = true`: use a dedicated domain or
+subdomain and do not pass `--path`.
 
 ## Bumping to a new Ditto version
 
